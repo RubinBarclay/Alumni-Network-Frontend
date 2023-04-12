@@ -1,0 +1,10 @@
+{
+  "realm": "alumni-network-server",
+  "auth-server-url": "https://lemur-4.cloud-iam.com/auth/",
+  "ssl-required": "external",
+  "resource": "alumni-network-client",
+  "public-client": true,
+  "verify-token-audience": true,
+  "use-resource-role-mappings": true,
+  "confidential-port": 0
+}
