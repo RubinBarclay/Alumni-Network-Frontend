@@ -1,25 +1,24 @@
-import Keycloak, { KeycloakInitOptions } from "keycloak-js";
+import Keycloak, { KeycloakError, KeycloakInitOptions, KeycloakPromise } from "keycloak-js";
 
-const keycloak = new Keycloak("/keycloak/keycloak.json");
+// TODO: Replace values with env vars for dev and prod environments
+const keycloak = new Keycloak({
+  url: "http://localhost:8080", 
+  realm: "alumni-network",
+  clientId: "alumni-network-client",
+});
 
 /**
  * Initialize Keycloak and silently checking for an existing login.
  */
-export const initializeKeycloak = async (): Promise<void> => {
-  
+export const initializeKeycloak = (): KeycloakPromise<boolean, KeycloakError> => {
+
   const config: KeycloakInitOptions = {
     checkLoginIframe: false,
     onLoad: "check-sso",
-    silentCheckSsoRedirectUri:
-      window.location.origin + "/keycloak/silent-check-sso.html",
+    silentCheckSsoRedirectUri: window.location.origin + "/silent-check-sso.html",
   };
 
-  try {
-    const initialized = await keycloak.init(config);
-    alert(initialized  ? 'authenticated' : 'not authenticated');
-  } catch (error) {
-    alert('failed to initialize keycloak');
-  }
-};
+  return keycloak.init(config)
+}
 
-export default keycloak;
+export default keycloak

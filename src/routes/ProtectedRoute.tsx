@@ -3,7 +3,7 @@ import keycloak from "../keycloak";
 import { ReactNode } from "react";
 
 type Props = {
-  children: ReactNode;
+  element: ReactNode;
   role: string;
   redirectTo?: string;
 }
@@ -12,7 +12,7 @@ type Props = {
  * Protect routes based on a given role and authenticated status of a Keycloak Session.
  * @description Default redirect is to the base path: "/"
  */
-function ProtectedRoute({ children, role, redirectTo = "/" }: Props) {
+function ProtectedRoute({ element, role, redirectTo = "/" }: Props) {
 
   if (!keycloak.authenticated) {
     return <Navigate replace to={redirectTo} />;
@@ -20,7 +20,7 @@ function ProtectedRoute({ children, role, redirectTo = "/" }: Props) {
 
   if (keycloak.hasRealmRole(role)) {
     return (
-      <Route element={children} />
+      <Route element={element} />
     )
   }
 
