@@ -1,16 +1,12 @@
 import { useEffect } from "react"
 import Home from "./pages/Home"
-import Login from "./pages/Login"
+import Login from "./pages/Login/Login"
 import Register from "./pages/Register"
 import ProtectedRoute from "./routes/ProtectedRoute"
 import { Route, Routes } from "react-router-dom"
 import keycloak from "./keycloak"
 
 function App() {
-
-  useEffect(() => {
-    console.log(keycloak.authenticated)
-  })
 
   return (
     <>
