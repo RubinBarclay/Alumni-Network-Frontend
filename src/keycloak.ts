@@ -13,9 +13,8 @@ const keycloak = new Keycloak({
 export const initializeKeycloak = (): KeycloakPromise<boolean, KeycloakError> => {
 
   const config: KeycloakInitOptions = {
-    checkLoginIframe: false,
-    onLoad: "check-sso",
-    silentCheckSsoRedirectUri: window.location.origin + "/silent-check-sso.html",
+    onLoad: "login-required",
+    checkLoginIframeInterval: 5000,
   };
 
   return keycloak.init(config)

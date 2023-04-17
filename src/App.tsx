@@ -1,24 +1,21 @@
-import { useEffect } from "react"
 import Home from "./pages/Home"
-import Login from "./pages/Login"
-import Register from "./pages/Register"
-import ProtectedRoute from "./routes/ProtectedRoute"
-import { Route, Routes } from "react-router-dom"
-import keycloak from "./keycloak"
+import { Navigate, Route, Routes } from "react-router-dom"
+import Navbar from "./components/Navbar/Navbar"
 
 function App() {
 
-  useEffect(() => {
-    console.log(keycloak.authenticated)
-  })
+  // useEffect(() => {
+  //   if (!keycloak.authenticated) {
+  //     keycloak.login()
+  //   }
+  // })
 
   return (
     <>
+      <Navbar />
       <Routes>
-        <Route path="/" element={<ProtectedRoute element={<Home />} role={"USER"} redirectTo="/login" />} />
-        <Route index path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/protected" element={<ProtectedRoute element={<Register />} role={"USER"} redirectTo="/login" />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/*" element={<Navigate to="/" />} />
       </Routes>
     </>
   )

@@ -1,4 +1,4 @@
-import { Navigate, Route } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import keycloak from "../keycloak";
 import { ReactNode } from "react";
 
@@ -19,9 +19,7 @@ function ProtectedRoute({ element, role, redirectTo = "/" }: Props) {
   }
 
   if (keycloak.hasRealmRole(role)) {
-    return (
-      <Route element={element} />
-    )
+    return element;
   }
 
   return <Navigate replace to={redirectTo} />;
