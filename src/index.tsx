@@ -1,4 +1,3 @@
-import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App'
 import './styles/pico.min.css'
@@ -15,17 +14,13 @@ root.render(<p>Connecting to keycloak...</p>)
 initializeKeycloak()
   .then(() => {
     root.render(
-      <React.StrictMode>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
-      </React.StrictMode>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
     );
   })
   .catch(() => {
     root.render(
-      <React.StrictMode>
-        <p>Could Not Connect To Keycloak.</p>
-      </React.StrictMode>
+      <p>Could Not Connect To Keycloak.</p>
     );
   });
