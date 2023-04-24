@@ -8,13 +8,25 @@ import keycloak from "./keycloak"
 function App() {
 
   useEffect(() => {
-    console.log(keycloak.token)
+    if (!keycloak.authenticated) return;
 
-    // If multiple request are sent right after each other, multiple records for the same user is created
-    // Possible solution: make API endpoint non async (would this work?)
-    if (keycloak.authenticated) {
-      createNewUserRequest({ name: "sally" });
+    // console.log(keycloak.token)
+
+    const createNewUser = async () => {
+      const userProfile = await keycloak.loadUserProfile()
+
+      if (!userProfile.username) {
+        console.log('No username found')
+        return;
+      }
+
+      const newUser = createNewUserRequest({ name: userProfile.username })
+
+      console.log('New user:', newUser)
     }
+
+
+    createNewUser()
   }, [])
 
   return (

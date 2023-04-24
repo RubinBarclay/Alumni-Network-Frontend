@@ -4,6 +4,7 @@ import './styles/pico.min.css'
 import './styles/index.css'
 import { BrowserRouter } from 'react-router-dom'
 import { initializeKeycloak } from './keycloak'
+import React from 'react'
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 
@@ -14,9 +15,11 @@ root.render(<p>Connecting to keycloak...</p>)
 initializeKeycloak()
   .then(() => {
     root.render(
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
+      <React.StrictMode>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </React.StrictMode>
     );
   })
   .catch(() => {

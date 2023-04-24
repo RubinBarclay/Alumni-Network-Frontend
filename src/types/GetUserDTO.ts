@@ -1,5 +1,5 @@
 type GetUserDTO = {
-  Id: number;
+  id: number;
   name: string;
   pictureUrl: string;
   status: string;
