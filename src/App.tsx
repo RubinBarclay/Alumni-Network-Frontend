@@ -4,28 +4,26 @@ import Navbar from "./components/Navbar/Navbar"
 import { useEffect } from "react"
 import { createNewUserRequest } from "./api/user"
 import keycloak from "./keycloak"
+import { useMutation } from "@tanstack/react-query"
+import CreateUserDTO from "./types/CreateUserDTO"
 
 function App() {
+  const mutation = useMutation({ 
+    mutationFn: (body: CreateUserDTO) => createNewUserRequest(body),
+    onSuccess: (newUser) => console.log('New user: ', newUser),
+    onError: (error) => console.log('Error: ', error)
+  })
+
+  const createNewUser = async () => {
+    const userProfile = await keycloak.loadUserProfile()
+    
+    if (!userProfile.username) return
+
+    mutation.mutate({ name: userProfile.username })
+  }
 
   useEffect(() => {
     if (!keycloak.authenticated) return;
-
-    // console.log(keycloak.token)
-
-    const createNewUser = async () => {
-      const userProfile = await keycloak.loadUserProfile()
-
-      if (!userProfile.username) {
-        console.log('No username found')
-        return;
-      }
-
-      const newUser = createNewUserRequest({ name: userProfile.username })
-
-      console.log('New user:', newUser)
-    }
-
-
     createNewUser()
   }, [])
 

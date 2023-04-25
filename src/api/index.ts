@@ -7,9 +7,10 @@
 const request = async <TResponse>(url: string, config: RequestInit = {}): Promise<TResponse> => {
   const response = await fetch(url, config);
 
-  // if (!response.ok) {
-  //   throw new Error(response.statusText);
-  // }
+  if (!response.ok) {
+    const error = await response.text();
+    throw new Error(error);
+  }
 
   return await response.json();
 }
