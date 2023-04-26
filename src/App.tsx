@@ -8,7 +8,7 @@ import { useMutation } from "@tanstack/react-query"
 import CreateUserDTO from "./types/CreateUserDTO"
 
 function App() {
-  const mutation = useMutation({ 
+  const mutation = useMutation({
     mutationFn: (body: CreateUserDTO) => createNewUserRequest(body),
     onSuccess: (newUser) => console.log('New user: ', newUser),
     onError: (error) => console.log('Error: ', error)
@@ -16,7 +16,7 @@ function App() {
 
   const createNewUser = async () => {
     const userProfile = await keycloak.loadUserProfile()
-    
+
     if (!userProfile.username) return
 
     mutation.mutate({ name: userProfile.username })
@@ -24,16 +24,18 @@ function App() {
 
   useEffect(() => {
     if (!keycloak.authenticated) return;
-    createNewUser()
+    // createNewUser()
   }, [])
 
   return (
     <>
       <Navbar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/*" element={<Navigate to="/" />} />
-      </Routes>
+      {/* <main className="container mx-auto"> */}
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/*" element={<Navigate to="/" />} />
+        </Routes>
+      {/* </main> */}
     </>
   )
 }
