@@ -1,11 +1,10 @@
+import React from 'react'
 import ReactDOM from 'react-dom/client'
-import App from './App'
-import './styles/pico.min.css'
-import './styles/index.css'
 import { BrowserRouter } from 'react-router-dom'
 import { initializeKeycloak } from './keycloak'
-import React from 'react'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import App from './App'
+import './index.css'
 
 const queryClient = new QueryClient()
 
