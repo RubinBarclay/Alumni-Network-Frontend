@@ -49,7 +49,7 @@ function Navbar({ }: Props) {
               </Link>
             </li>
             <li><Link to="/">Settings</Link></li>
-            <li><Link to="/">Logout</Link></li>
+            <li><button onClick={() => keycloak.logout()}>Logout</button></li>
           </ul>
         </div>
       </div>
