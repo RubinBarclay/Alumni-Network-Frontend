@@ -1,9 +1,13 @@
 import { Link } from 'react-router-dom'
 import keycloak from '../../keycloak'
+import { useSelector } from 'react-redux'
+import { RootState } from '../../redux/store'
 
 type Props = {}
 
 function Navbar({ }: Props) {
+  const user = useSelector((state: RootState) => state.user)
+
   return (
     <div className="navbar bg-base-100 container mx-auto">
 
@@ -37,7 +41,7 @@ function Navbar({ }: Props) {
           <label tabIndex={0} className="btn btn-ghost btn-circle avatar placeholder">
             {/* Avatar placeholder */}
             <div className="bg-neutral-focus text-neutral-content rounded-full w-24">
-              <span className="text-xl">KB</span>
+              <span className="text-xl">{user.name ? user.name[0].toUpperCase() : "ツ"}</span>
             </div>
             {/* <img src="/images/stock/photo-1534528741775-53994a69daeb.jpg" /> */}
           </label>

@@ -2,25 +2,27 @@ import { useEffect, useState } from 'react'
 import { useMutation } from '@tanstack/react-query'
 import { createNewUserRequest } from '../api/requests/user'
 import CreateUserDTO from '../types/CreateUserDTO'
-import keycloak from '../keycloak'
+import keycloak, { getUserProfile } from '../keycloak'
 import { Navigate } from 'react-router-dom'
 // import FetchError from '../types/FetchError'
 import FetchError from '../errors/fetchError'
 
 function Redirect() {
   const [errorOccured, setErrorOccured] = useState(false)
+
+
   const mutation = useMutation({
     mutationFn: (body: CreateUserDTO) => createNewUserRequest(body)
   })
 
   const createNewUser = async () => {
 
-    const userProfile = await keycloak.loadUserProfile()
+    const { username } = await getUserProfile()
 
-    if (!userProfile.username) return
+    if (!username) return
 
     try {
-      const response = await mutation.mutateAsync({ name: userProfile.username })
+      const response = await mutation.mutateAsync({ name: username })
 
       if (response.status === 409) return // user already has an account, continue with login
 

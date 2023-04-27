@@ -1,4 +1,4 @@
-import Keycloak, { KeycloakError, KeycloakInitOptions, KeycloakPromise } from "keycloak-js";
+import Keycloak, { KeycloakError, KeycloakInitOptions, KeycloakProfile, KeycloakPromise } from "keycloak-js";
 
 // TODO: Replace values with env vars for dev and prod environments
 const keycloak = new Keycloak({
@@ -18,6 +18,19 @@ export const initializeKeycloak = (): KeycloakPromise<boolean, KeycloakError> =>
   };
 
   return keycloak.init(config)
+}
+
+/**
+ * Get user profile from Keycloak.
+ */
+export const getUserProfile = async (): Promise<KeycloakProfile> => {
+  const userProfile = await keycloak.loadUserProfile()
+
+  if (!userProfile) {
+    throw new Error("User profile not found")
+  }
+
+  return userProfile
 }
 
 export default keycloak
