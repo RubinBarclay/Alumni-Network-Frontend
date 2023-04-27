@@ -1,4 +1,5 @@
 type FetchError = {
+  status: number;
   detail: string;
 }
 
