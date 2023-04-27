@@ -6,6 +6,8 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import App from './App'
 import './index.css'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import { Provider } from 'react-redux'
+import { store } from './redux/store'
 
 const queryClient = new QueryClient()
 
@@ -20,16 +22,18 @@ initializeKeycloak()
     root.render(
       <React.StrictMode>
         <BrowserRouter>
-          <QueryClientProvider client={queryClient}>
-            <App />
-            <ReactQueryDevtools initialIsOpen={false} />
-          </QueryClientProvider>
+          <Provider store={store}>
+            <QueryClientProvider client={queryClient}>
+              <App />
+              <ReactQueryDevtools initialIsOpen={false} />
+            </QueryClientProvider>
+          </Provider>
         </BrowserRouter>
       </React.StrictMode>
-    );
+    )
   })
   .catch(() => {
     root.render(
       <p>Could Not Connect To Keycloak.</p>
-    );
-  });
+    )
+  })
