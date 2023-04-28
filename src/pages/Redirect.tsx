@@ -6,8 +6,11 @@ import keycloak, { getUserProfile } from '../keycloak'
 import { Navigate } from 'react-router-dom'
 // import FetchError from '../types/FetchError'
 import FetchError from '../errors/fetchError'
+import { useDispatch } from 'react-redux'
+import { setUser } from '../redux/slices/userSlice'
 
 function Redirect() {
+  const dispatch = useDispatch()
   const [errorOccured, setErrorOccured] = useState(false)
 
 
@@ -24,11 +27,16 @@ function Redirect() {
     try {
       const response = await mutation.mutateAsync({ name: username })
 
-      if (response.status === 409) return // user already has an account, continue with login
-
       if (!response.ok) {
         throw new FetchError(response.statusText, response.status)
       }
+
+      const user = await response.json()
+
+      if (user) {
+        dispatch(setUser(user))
+      }
+
     } catch (error: unknown) {
 
       if (typeof error === 'string') {
