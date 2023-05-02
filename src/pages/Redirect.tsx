@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import { useMutation } from '@tanstack/react-query'
 import { createNewUserRequest } from '../api/requests/user'
 import CreateUserDTO from '../types/CreateUserDTO'
 import keycloak, { getUserProfile } from '../keycloak'
@@ -11,62 +10,56 @@ import { setUser } from '../redux/slices/userSlice'
 
 function Redirect() {
   const dispatch = useDispatch()
-  const [errorOccured, setErrorOccured] = useState(false)
 
+  // const createNewUser = async () => {
 
-  const mutation = useMutation({
-    mutationFn: (body: CreateUserDTO) => createNewUserRequest(body)
-  })
+  //   const { username } = await getUserProfile()
 
-  const createNewUser = async () => {
+  //   if (!username) return
 
-    const { username } = await getUserProfile()
+  //   try {
+  //     const response = await mutation.mutateAsync({ name: username })
 
-    if (!username) return
+  //     if (!response.ok) {
+  //       throw new FetchError(response.statusText, response.status)
+  //     }
 
-    try {
-      const response = await mutation.mutateAsync({ name: username })
+  //     const user = await response.json()
 
-      if (!response.ok) {
-        throw new FetchError(response.statusText, response.status)
-      }
+  //     if (user) {
+  //       dispatch(setUser(user))
+  //     }
 
-      const user = await response.json()
+  //   } catch (error: unknown) {
 
-      if (user) {
-        dispatch(setUser(user))
-      }
+  //     if (typeof error === 'string') {
+  //       console.error(`Error: ${error}`)
+  //     }
 
-    } catch (error: unknown) {
+  //     else if (error instanceof FetchError) {
+  //       console.error(`Error ${error.status}: ${error.message}`)
+  //     }
 
-      if (typeof error === 'string') {
-        console.error(`Error: ${error}`)
-      }
-
-      else if (error instanceof FetchError) {
-        console.error(`Error ${error.status}: ${error.message}`)
-      }
-
-      else {
-        console.error(error)
-      }
+  //     else {
+  //       console.error(error)
+  //     }
     
-      setErrorOccured(true)
-    }
-  }
+  //     setErrorOccured(true)
+  //   }
+  // }
 
-  useEffect(() => {
-    if (!keycloak.authenticated) return
-    createNewUser()
-  }, [])
+  // useEffect(() => {
+  //   if (!keycloak.authenticated) return
+  //   createNewUser()
+  // }, [])
 
-  if (errorOccured) {
-    return <h1 className="prose">Error occured</h1>
-  }
+  // if (errorOccured) {
+  //   return <h1 className="prose">Error occured</h1>
+  // }
 
   return (
     <main className="container mx-auto h-screen flex justify-center items-center">
-      {mutation.isLoading ? (
+      {/* {mutation.isLoading ? (
         <article className="prose max-w-xl flex-1 bg-base-200 rounded-xl p-10">
           <h2>Redirecting you to your feed</h2>
           <p className="text-lg">Please wait just a moment as we set things up for you.</p>
@@ -87,7 +80,7 @@ function Redirect() {
 
           {mutation.isSuccess ? <Navigate to="/feed" /> : null}
         </>
-      )}
+      )} */}
     </main>
   )
 }
