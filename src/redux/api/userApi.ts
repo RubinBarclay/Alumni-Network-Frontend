@@ -1,6 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import type { BaseQueryFn } from '@reduxjs/toolkit/query'
 import GetUserDTO from '../../types/GetUserDTO'
+import CreateUserDTO from '../../types/CreateUserDTO'
+import keycloak from '../../keycloak'
 
 export const userApi = createApi({
   reducerPath: 'userApi',
@@ -8,6 +9,19 @@ export const userApi = createApi({
   endpoints: (builder) => ({
     getUserById: builder.query<GetUserDTO, string>({
       query: (id) => `/users/${id}`,
+    }),
+    createNewUser: builder.mutation<GetUserDTO, Partial<CreateUserDTO>>({
+      query: (body) => ({
+        url: '/users',
+        method: 'POST',
+        body,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${keycloak.token}`
+        },
+      }),
+      transformResponse: (response: { data: GetUserDTO }) => response.data,
+      transformErrorResponse: (response:  { status: string | number }) => response.status,
     }),
   }),
 })
@@ -39,4 +53,4 @@ export const userApi = createApi({
 //   return { data: 'congratulations', meta }
 // } 
 
-export const { useGetUserByIdQuery } = userApi
+export const { useGetUserByIdQuery, useCreateNewUserMutation } = userApi
