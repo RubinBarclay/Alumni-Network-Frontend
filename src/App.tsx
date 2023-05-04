@@ -16,7 +16,7 @@ function App() {
 
     if (!name) return // TODO: Show error message
 
-    createNewUser({ name })
+    // createNewUser({ name })
   }, [])
 
   return (
