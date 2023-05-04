@@ -8,7 +8,7 @@ export const userApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: `${import.meta.env.VITE_BASE_API_URL}/api/v1/` }),
   endpoints: (builder) => ({
     getUserById: builder.query<GetUserDTO, string>({
-      query: (id) => `/users/${id}`,
+      query: (id) => `users/${id}`,
     }),
     createNewUser: builder.mutation<GetUserDTO, Partial<CreateUserDTO>>({
       query: (body) => ({
