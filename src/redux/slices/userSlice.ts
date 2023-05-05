@@ -3,7 +3,7 @@ import type { PayloadAction } from '@reduxjs/toolkit'
 import GetUserDTO from '../../types/GetUserDTO'
 import { userApi } from '../api/userApi'
 
-const initialState = {}
+const initialState: GetUserDTO = { id: 0, name: '' } // Both id and name are falsy by default
 
 export const userSlice = createSlice({
   name: 'user',

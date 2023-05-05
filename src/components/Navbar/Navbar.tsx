@@ -41,15 +41,14 @@ function Navbar({ }: Props) {
           <label tabIndex={0} className="btn btn-ghost btn-circle avatar placeholder">
             {/* Avatar placeholder */}
             <div className="bg-neutral-focus text-neutral-content rounded-full w-24">
-              <span className="text-xl">{user ? user?.name?.[0].toUpperCase() : "ツ"}</span>
+              <span className="text-xl">{user.id ? user.name[0].toUpperCase() : "ツ"}</span>
             </div>
             {/* <img src="/images/stock/photo-1534528741775-53994a69daeb.jpg" /> */}
           </label>
           <ul tabIndex={0} className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52">
             <li>
-              <Link to="/" className="justify-between">
+              <Link to="/profile" className="justify-between">
                 Profile
-                <span className="badge">New</span>
               </Link>
             </li>
             <li><Link to="/">Settings</Link></li>
