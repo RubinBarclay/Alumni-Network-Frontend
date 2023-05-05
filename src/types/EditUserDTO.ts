@@ -1,10 +1,9 @@
-type GetUserDTO = {
-  id: number;
-  name: string;
+type EditUserDTO = {
+  name?: string;
   pictureUrl?: string;
   status?: string;
   funFact?: string;
   bio?: string;
 }
 
-export default GetUserDTO;
+export default EditUserDTO;

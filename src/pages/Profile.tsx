@@ -1,6 +1,5 @@
 import { useSelector } from "react-redux"
 import { RootState } from "../redux/store"
-import keycloak from "../keycloak"
 import ProfileForm from "../components/ProfileForm/ProfileForm"
 
 type Props = {}
@@ -8,11 +7,7 @@ type Props = {}
 function Profile({ }: Props) {
   const user = useSelector((state: RootState) => state.user)
 
-  console.log(user)
-
   const initials = user.name ? user.name.split(" ").map((name: string) => name[0].toUpperCase()).join("") : "ツ"
-
-  console.log(keycloak.token)
 
   return (
     <main className="container mx-auto mt-8 flex flex-col lg:flex-row">

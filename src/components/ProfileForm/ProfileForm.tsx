@@ -2,6 +2,8 @@ import { useForm } from "react-hook-form"
 import { yupResolver } from '@hookform/resolvers/yup'
 import { ProfileFormData, profileFormSchema } from "./profileFormSchema"
 import GetUserDTO from "../../types/GetUserDTO"
+import { useEditUserMutation } from "../../redux/api/userApi"
+import EditUserDTO from "../../types/EditUserDTO"
 
 function ProfileForm({ user }: { user: GetUserDTO }) {
   const { register, handleSubmit, formState: { errors,isDirty, isValid  } } = useForm<ProfileFormData>({
@@ -15,7 +17,13 @@ function ProfileForm({ user }: { user: GetUserDTO }) {
     }
   })
 
-  const onSubmit = (data: ProfileFormData) => console.log(data)
+  const [editUser] = useEditUserMutation();
+
+  const onSubmit = (data: ProfileFormData) => {
+    console.log(data)
+
+    editUser({ id: user.id, body: data as EditUserDTO })
+  }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="form-control w-full bg-base-200 rounded-xl p-6">

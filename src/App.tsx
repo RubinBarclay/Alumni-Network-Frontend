@@ -7,7 +7,6 @@ import keycloak from "./keycloak"
 import Profile from "./pages/Profile"
 import { RootState } from "./redux/store"
 import { useSelector } from "react-redux"
-import GetUserDTO from "./types/GetUserDTO"
 
 function App() {
   const user = useSelector((state: RootState) => state.user)

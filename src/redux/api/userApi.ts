@@ -2,6 +2,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import GetUserDTO from '../../types/GetUserDTO'
 import CreateUserDTO from '../../types/CreateUserDTO'
 import keycloak from '../../keycloak'
+import EditUserDTO from '../../types/EditUserDTO'
 
 export const userApi = createApi({
   reducerPath: 'userApi',
@@ -24,7 +25,24 @@ export const userApi = createApi({
       }),
       transformErrorResponse: (response:  { status: string | number }) => response.status,
     }),
+    // Edit existing user
+    editUser: builder.mutation<GetUserDTO, Partial<{ id: number, body: EditUserDTO }>>({
+      query: ({ id, body }) => ({
+        url: `users/${id}`,
+        method: 'PUT',
+        body,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${keycloak.token}`
+        },
+      }),
+      transformErrorResponse: (response:  { status: string | number }) => response.status,
+    }),
   }),
 })
 
-export const { useGetUserByIdQuery, useCreateNewUserMutation } = userApi
+export const {
+  useGetUserByIdQuery, 
+  useCreateNewUserMutation, 
+  useEditUserMutation 
+} = userApi
