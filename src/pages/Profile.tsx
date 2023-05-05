@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux"
 import { RootState } from "../redux/store"
 import keycloak from "../keycloak"
+import ProfileForm from "../components/ProfileForm/ProfileForm"
 
 type Props = {}
 
@@ -52,10 +53,19 @@ function Profile({ }: Props) {
         </div>
       </section>
 
-      <section className="bg-orange-200 lg:basis-2/3">
-        Your posts?
-      </section>
-    </main>
+      <section className="lg:basis-2/3">
+
+        {/* Show users posts OR edit user form if edit button is clicked */}
+        {true ? (
+          <ProfileForm user={user} />
+        ) : (
+          <div className="bg-orange-200 lg:basis-2/3">
+            Your posts?
+          </div>
+        )}
+
+      </section >
+    </main >
   )
 }
 
