@@ -5,7 +5,12 @@ import GetUserDTO from "../../types/GetUserDTO"
 import { useEditUserMutation } from "../../redux/api/userApi"
 import EditUserDTO from "../../types/EditUserDTO"
 
-function ProfileForm({ user }: { user: GetUserDTO }) {
+type Props = {
+  user: GetUserDTO,
+  cancelEdit: () => void
+}
+
+function ProfileForm({ user, cancelEdit }: Props) {
   const { register, handleSubmit, formState: { errors,isDirty, isValid  } } = useForm<ProfileFormData>({
     resolver: yupResolver(profileFormSchema),
     defaultValues: {
@@ -20,8 +25,6 @@ function ProfileForm({ user }: { user: GetUserDTO }) {
   const [editUser] = useEditUserMutation();
 
   const onSubmit = (data: ProfileFormData) => {
-    console.log(data)
-
     editUser({ id: user.id, body: data as EditUserDTO })
   }
 
@@ -54,6 +57,8 @@ function ProfileForm({ user }: { user: GetUserDTO }) {
       <textarea {...register("bio")} className="textarea textarea-bordered h-32 mb-3"></textarea>
 
       <button disabled={!isDirty || !isValid} className="btn btn-primary mt-5">Apply changes</button>
+
+      <button onClick={() => cancelEdit()} className="btn btn-outline btn-secondary mt-5">Cancel</button>
 
     </form>
   )

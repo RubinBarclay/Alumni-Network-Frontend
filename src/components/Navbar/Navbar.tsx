@@ -9,7 +9,7 @@ function Navbar({ }: Props) {
   const user: any = useSelector((state: RootState) => state.user)
 
   return (
-    <div className="navbar bg-base-100 container mx-auto">
+    <div className="navbar sticky top-0 z-50 container mx-auto">
 
       <div className="navbar-start lg:hidden">
         <div className="dropdown">

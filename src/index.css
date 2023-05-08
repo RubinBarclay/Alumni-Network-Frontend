@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.page {
+  @apply container mx-auto mt-6 px-2 lg:px-4;
+}

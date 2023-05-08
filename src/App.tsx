@@ -16,7 +16,7 @@ function App() {
   useEffect(() => {
     if (!keycloak.authenticated) return // TODO: Show error message
 
-    if (user.id) return // User already exists in store (no need to create new user)
+    if (user.id) return // User already exists in store (no need to create new user) // TODO: Fix redux-persist so that this works
 
     const name = keycloak.tokenParsed?.name
 

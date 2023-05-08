@@ -2,7 +2,7 @@ type Props = {}
 
 function Home({ }: Props) {
   return (
-    <main className="container mx-auto flex flex-col lg:flex-row">
+    <main className="page flex flex-col lg:flex-row">
       <section className="bg-pink-200 lg:basis-1/4">
         Groups
       </section>
